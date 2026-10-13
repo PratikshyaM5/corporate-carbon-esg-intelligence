@@ -41,8 +41,9 @@ WHERE legal_name != TRIM(legal_name);
 -- Expectation: No Results
 SELECT 
     esg_rating
-FROM bronze.crm_bp_supplier_master
-WHERE TRY_CAST(esg_rating AS DECIMAL(10,2)) < 0 OR TRY_CAST(esg_rating AS DECIMAL(10,2)) IS NULL 
+FROM silver.crm_bp_supplier_master
+WHERE TRY_CAST(esg_rating AS DECIMAL(10,2)) < 0 OR TRY_CAST(esg_rating AS DECIMAL(10,2)) IS NULL OR
+DATALENGTH(esg_rating) != DATALENGTH(TRIM(esg_rating))
 
 
 -- Data Standardization and Consistency
