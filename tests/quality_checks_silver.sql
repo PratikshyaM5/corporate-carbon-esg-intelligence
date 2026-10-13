@@ -26,7 +26,7 @@ Usage Notes:
 SELECT 
   bp_id,
   COUNT(*) AS Duplicates
-FROM bronze.crm_bp_supplier_master
+FROM silver.crm_bp_supplier_master
 GROUP BY bp_id
 HAVING COUNT(*) > 1 OR bp_id IS NULL
 
@@ -34,7 +34,7 @@ HAVING COUNT(*) > 1 OR bp_id IS NULL
 -- Expectation: No Results
 SELECT 
     legal_name
-FROM bronze.crm_bp_supplier_master
+FROM silver.crm_bp_supplier_master
 WHERE legal_name != TRIM(legal_name); 
 
 -- Check for NULLS or Negative numbers
@@ -49,5 +49,12 @@ DATALENGTH(esg_rating) != DATALENGTH(TRIM(esg_rating))
 -- Data Standardization and Consistency
 SELECT DISTINCT 
   country_cd
-FROM bronze.crm_bp_supplier_master
+FROM silver.crm_bp_supplier_master
+
+SELECT DISTINCT 
+    geo_region
+FROM silver.crm_bp_supplier_master
+
+SELECT DISTINCT strat_flg
+FROM silver.crm_bp_supplier_master
 
